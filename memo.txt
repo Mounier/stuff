@@ -1,0 +1,187 @@
+puts : "a + b vaut : " (a+b).to_s
+
+to_s : convertit un entier en string 
+to_i : convertit une chaîne en un entier, ou retourne la partie entière d'un réel
+	irb(main):001:0> "42".to_i
+	=> 42
+	irb(main):002:0> "42abc".to_i
+	=> 42
+	irb(main):003:0> "abc42abc".to_i
+	=> 0
+	irb(main):004:0> "abc".to_i
+	=> 0
+to_f : idem, mais retourne un réel
+length : retourne la longueur d'une chaîne ou la longueur d'un tableau
+upcase : convertit une chaîne en majuscules
+downcase : convertit une chaîne en minuscules
+swapcase : intervertit les majuscules et les minuscules dans une chaîne
+capitalize : met en majuscule le premier caractère de la chaîne
+reverse : inverse la chaîne ou les éléments d'un tableau
+
+
+
+Quelques méthodes sur les tableaux :
+
+irb(main):005:0> tablo = ['a', 'z', 'e', 'r', 't']
+=> ["a", "z", "e", "r", "t"]
+irb(main):006:0> tablo.push('y', 'u')
+=> ["a", "z", "e", "r", "t", "y", "u"]
+irb(main):007:0> tablo.pop
+=> "u"
+irb(main):008:0> tablo
+=> ["a", "z", "e", "r", "t", "y"]
+irb(main):009:0> tablo.last
+=> "y"
+irb(main):010:0> tablo
+=> ["a", "z", "e", "r", "t", "y"]
+ la méthode "sort". Faites juste un "mon_tableau.sort", et vous verrez alors votre tableau trié :)
+ 
+ 
+ 
+Les hashs :
+ 
+irb(main):001:0> mon_hash = {:nom => "Naigeon", :prenom => "PB"}
+=> {:nom => "Naigeon", :prenom => "PB"}
+irb(main):002:0> puts mon_hash[:nom]
+Naigeon
+=> nil
+irb(main):003:0> puts mon_hash[:prenom]
+PB
+=> nil
+irb(main):004:0> mon_hash[:prenom] = "Pierre-Baptiste"
+=>"Pierre-Baptiste"
+irb(main):005:0> puts mon_hash[:prenom]
+Pierre-Baptiste
+=> nil
+
+
+
+manipulation de chaines, tableaux et hashs :
+
+irb(main):001:0> ma_var = 'azerty'
+=> "azerty"
+irb(main):002:0> ma_var[0]
+=> 97
+irb(main):003:0> ma_var[0..0]
+=> "a"
+irb(main):004:0> ma_var[0..3]
+=> "azer"
+irb(main):005:0> ma_var[0,4]
+=> "azer"
+irb(main):006:0> ma_var[-2,2]	# nous lui passons un indice négatif. Les indices négatifs partent de la fin du tableau (et commencent à 1, eux, puisqu'il est dur de différencier 0 et -0). Nous lui demandons donc d'afficher à partir du deuxième caractère avant la fin une chaîne de longueur 2 (les deux derniers caractères quoi !).
+=> "ty"
+
+irb(main):007:0> mon_tabl = ['q', 'w', 'e', 'r', 't', 'y']
+=> ["q", "w", "e", "r", "t", "y"]
+irb(main):008:0> mon_tabl[0]
+=> "q"
+irb(main):009:0> mon_tabl[0..0]
+=> ["q"]
+irb(main):010:0> mon_tabl[0..3]
+=> ["q", "w", "e", "r"]
+irb(main):011:0> mon_tabl[0,4]
+=> ["q", "w", "e", "r"]
+irb(main):012:0> mon_tabl[-2,2]
+=> ["t", "y"]
+
+irb(main):010:0> ma_date = '18/02/1981'
+=> "18/02/1981"
+irb(main):011:0> mon_tableau = ma_date.split('/')
+=> ["18", "02", "1981"]
+irb(main):012:0> ma_date2 = mon_tableau.join('-')
+=> "18-02-1981"
+Vous pouvez bien entendu spécifier le séparateur de votre choix.
+
+
+
+Convention de nommaage : 
+
+Variables et méthodes
+
+nom_var
+nom_methode
+nom_methode? (une méthode qui renvoie true ou false : is_a?(Fixnum))
+nom_methode! (une méthode "destructrice", souvent qui modifie la variable : sort!)
+@nom_var_instance
+@@nom_var_classe
+$nom_var_globale (Attention, peut aussi s'écrire en majuscules : $NOM_VARIABLE_GLOBALE)
+NomClasse
+NOMCONSTANTE ou NomConstante
+
+class Animal
+  @@total_cree = 0
+  attr_accessor :parle, :age	# Cette méthode permet de créer automatiquement des méthodes d'accès en lecture et en écriture aux variables d'instance passées en paramètre.
+								# Si nous avions voulu accéder uniquement en lecture à nos variables, nous aurions pu utiliser "attr_reader", et "attr_writer" si nous avions voulu y accéder uniquement en écriture.
+  
+  def initialize(parle="...", age=0)
+    @@total_cree += 1
+    @parle = parle
+    @age = age
+  end
+  
+  def self.total
+    @@total_cree
+  end
+end
+
+cochon = Animal.new
+cochon.age = 12
+puts cochon.age
+puts cochon.parle
+cochon.parle = "groin groin"
+puts cochon.parle
+
+ les "return" présents au sein de nos différentes méthodes sont inutiles, puisque Ruby renvoie automatiquement la dernière expression évaluée.
+Ainsi, "return @parole" peut devenir "@parole" seul.
+
+
+
+boucle for :
+
+tableau = [1, 2, 3, 4]
+for elt2 in tableau
+  puts elt2 + 1
+end
+
+
+each {...} et autres itérateurs :
+
+2000.times do
+  puts "Moi, j'adore K2000 !" # © Les Nuls
+end
+
+tableau = [1, 2, 3, 4]
+tableau.each { |elt2|
+  puts elt2 + 1
+}
+
+
+tableau = [1, 2, 3, 4]
+tableau.each do |elt2|
+  puts elt2 + 1
+end
+
+Il est également possible de parser un à un les caractères d'une chaîne à l'aide de each_byte :
+ma_chaine = "ayu"
+ma_chaine.each_byte { |carac|
+  ascii_sup = carac+1
+  puts ascii_sup.chr
+}
+Nous avons augmenté notre code ASCII de 1, puis nous avons affiché les lettres correspondantes.
+Notez simplement la méthode "chr" appelée à l'affichage, pour afficher le caractère et non le code ASCII.
+
+Il est également possible de parser ligne par ligne. Je suis sûr que vous avez déjà deviné le nom de l'itérateur... Bingo, each_line !
+Affichons donc le numéro de la ligne avant la ligne elle-même :
+ma_chaine = "toto\ntiti\ntata"
+i = 1
+ma_chaine.each_line { |ligne|
+  puts "#{i} : #{ligne}"
+  i += 1
+}
+
+Il existe différents moyens de sortir d'une boucle : "return", "break", "next" et "redo". Voyons les spécificités de chacun :
+return : sort complètement de la boucle et de la méthode qui contient la boucle.
+break : sort de la boucle, et continue le code juste après.
+next : passe directement à la prochaine itération de la boucle
+redo : re-passe l'itération courante de la boucle
+
